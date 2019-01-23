@@ -11,10 +11,24 @@ from model.utils.image import greyscale, crop_image, pad_image, \
 
 
 
-def img2latex(model, img_path):
+def img2latex(model, img_path, ratio=1):
+
+    dir_output = "tmp/"
+    run(['mkdir', '-p', './tmp'], TIMEOUT)
+    name = img_path.split('/')[-1].split('.')[0]
+    buckets = [
+        [240, 100], [320, 80], [400, 80], [400, 100], [480, 80], [480, 100],
+        [560, 80], [560, 100], [640, 80], [640, 100], [720, 80], [720, 100],
+        [720, 120], [720, 200], [800, 100], [800, 320], [1000, 200],
+        [1000, 400], [1200, 200], [1600, 200], [1600, 1600]
+        ]
 
     if img_path[-3:] == "png":
         img = imread(img_path)
+        img_path_tmp = dir_output + "{}.png".format(name)
+        crop_image(img_path, img_path_tmp)
+        pad_image(img_path_tmp, img_path_tmp, buckets=buckets)
+        downsample_image(img_path_tmp, img_path_tmp, ratio)
 
     elif img_path[-3:] == "pdf":
         # call magick to convert the pdf into a png file
@@ -29,14 +43,13 @@ def img2latex(model, img_path):
         name = img_path.split('/')[-1].split('.')[0]
         run("magick convert -density {} -quality {} {} {}".format(200, 100,
             img_path, dir_output+"{}.png".format(name)), TIMEOUT)
-        img_path = dir_output + "{}.png".format(name)
-        crop_image(img_path, img_path)
-        pad_image(img_path, img_path, buckets=buckets)
-        downsample_image(img_path, img_path, 2)
+        img_path_tmp = dir_output + "{}.png".format(name)
+        crop_image(img_path_tmp, img_path_tmp)
+        pad_image(img_path_tmp, img_path_tmp, buckets=buckets)
+        downsample_image(img_path_tmp, img_path_tmp, ratio)
 
-        img = imread(img_path)
-
-
+    if ratio > 1:
+        img = imread(img_path_tmp)
     img = greyscale(img)
     hyps = model.predict(img)
 
