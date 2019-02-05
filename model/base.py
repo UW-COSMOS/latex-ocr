@@ -78,7 +78,9 @@ class BaseModel(object):
 
     def init_session(self):
         """Defines self.sess, self.saver and initialize the variables"""
-        self.sess = tf.Session()
+        config = tf.ConfigProto()
+        config.gpu_options.allow_growth=True
+        self.sess = tf.Session(config=config)
         self.sess.run(tf.global_variables_initializer())
         self.saver = tf.train.Saver()
 

@@ -49,7 +49,7 @@ def pad_batch_images(images, max_shape=None):
 
 def greyscale(state):
     """Preprocess state (:, :, 3) image into greyscale"""
-    print(state.shape)
+    print("Pixel Dimensions: "+str(state.shape))
     state = state[:, :, 0]*0.299 + state[:, :, 1]*0.587 + state[:, :, 2]*0.114
     state = state[:, :, np.newaxis]
     return state.astype(np.uint8)
@@ -133,7 +133,7 @@ def crop_image(img, output_path):
 
 def downsample_image(img, output_path, ratio=2):
     """Downsample image by ratio"""
-    assert ratio>=1, ratio
+    # assert ratio>=1, ratio
     if ratio == 1:
         return True
     old_im = Image.open(img)
