@@ -4,8 +4,6 @@ scipy
 nltk
 pillow
 distance
-logging
-multiprocessing
 six
 click
 matplotlib
