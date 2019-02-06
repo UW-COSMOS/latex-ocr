@@ -1,14 +1,14 @@
-### Setup
+### Setup (with python3.6)
 1. Clone this repo 
 2. Download weights from https://drive.google.com/open?id=1DNkqhdHrnt6s4w3XXGyvHl46__DTfXy2
 3. Open `vocab.json` from the weight folder and change the value of `path_vocab` to [absolute-path-to-this-repo]/vocab.txt
-4. pip (python2) install -r requirements.txt
+4. pip (python3.6) install -r requirements.txt
    
 
 ### Usage Example
 
 ```
-python2 [abs-path-to-this-repo]/im2latex.py --weight_dir [abs-path-to-the-weights-downloaded-above (should be ended with im2latex_weights_prod/)] --img_path [abs-path-to-the-img-of-equation]
+python3 [abs-path-to-this-repo]/im2latex.py --weight_dir [abs-path-to-the-weights-downloaded-above (should be ended with im2latex_weights_prod/)] --img_path [abs-path-to-the-img-of-equation]
 ```
 
 ### Usage Descriptions
