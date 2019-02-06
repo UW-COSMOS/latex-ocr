@@ -49,7 +49,7 @@ def run(cmd, timeout_sec):
 def get_logger(filename):
     """Return instance of logger"""
     logger = logging.getLogger('logger')
-    logger.setLevel(logging.INFO)
+    logger.setLevel(logging.ERROR)
     logging.basicConfig(format='%(message)s', level=logging.INFO)
     handler = logging.FileHandler(filename)
     handler.setLevel(logging.INFO)
