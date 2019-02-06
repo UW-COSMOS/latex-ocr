@@ -8,7 +8,7 @@
 ### Usage Example
 
 ```
-python2 [abs-path-to-this-repo]/im2latex.py --weight_dir [abs-path-to-the-weights-downloaded-above (should be ended with im2latex_weights_prod)] --img_path [abs-path-to-the-img-of-equation]
+python2 [abs-path-to-this-repo]/im2latex.py --weight_dir [abs-path-to-the-weights-downloaded-above (should be ended with im2latex_weights_prod/)] --img_path [abs-path-to-the-img-of-equation]
 ```
 
 ### Usage Descriptions
