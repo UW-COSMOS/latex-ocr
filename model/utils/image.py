@@ -23,7 +23,6 @@ def get_max_shape(arrays):
     max_shape = []
     for d in range(ndim):
         max_shape += [max(shapes, key=lambda x: x[d])[d]]
-
     return max_shape
 
 

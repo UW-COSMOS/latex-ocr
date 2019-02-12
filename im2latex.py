@@ -173,16 +173,9 @@ def postprocess(raw_latex):
         merged = merged.replace(cmd, cmd+' ')
     return merged
 
-# downsample_image_ratio=1, cropping=False, padding=False, img_augment=None, gray_scale=True
-@click.command()
-@click.option('--downsample_image_ratio', default=2, help='Ratio to down sampling')
-@click.option('--cropping', default=True, help='Crops the source image')
-@click.option('--padding', default=True, help='Pads the source image')
-@click.option('--gray_scale', default=True, help='Gray scales the source image')
-@click.option('--weight_dir', required=True, help='Path to configuration folder under which there\'re vocab.json model.json model.weights')
-@click.option('--img_path', required=True, help='Path to source img')
-def img2latex_cli(weight_dir, img_path, downsample_image_ratio, cropping, padding, gray_scale):
-    """Program that takes as input an image of equation and outputs a Latex code"""
+def img2latex_api(weight_dir, img_path, downsample_image_ratio, cropping, padding, gray_scale):
+    os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
+    tf.logging.set_verbosity(tf.logging.ERROR)
     config_vocab = Config(weight_dir + "vocab.json")
     config_model = Config(weight_dir + "model.json")
     vocab = Vocab(config_vocab)
@@ -197,6 +190,19 @@ def img2latex_cli(weight_dir, img_path, downsample_image_ratio, cropping, paddin
     latex, _, _ = img2latex(model, img_path, 
         downsample_image_ratio=downsample_image_ratio, cropping=cropping, padding=padding, img_augment=seq, gray_scale=gray_scale)
     processed_latex = postprocess(latex)
+    return processed_latex
+
+# downsample_image_ratio=1, cropping=False, padding=False, img_augment=None, gray_scale=True
+@click.command()
+@click.option('--downsample_image_ratio', default=2, help='Ratio to down sampling')
+@click.option('--cropping', default=True, help='Crops the source image')
+@click.option('--padding', default=True, help='Pads the source image')
+@click.option('--gray_scale', default=True, help='Gray scales the source image')
+@click.option('--weight_dir', required=True, help='Path to configuration folder under which there\'re vocab.json model.json model.weights')
+@click.option('--img_path', required=True, help='Path to source img')
+def img2latex_cli(weight_dir, img_path, downsample_image_ratio, cropping, padding, gray_scale):
+    """Program that takes as input an image of equation and outputs a Latex code"""
+    processed_latex = img2latex_api(weight_dir, img_path, downsample_image_ratio, cropping, padding, gray_scale)
     click.echo(processed_latex)
 
 if __name__ == "__main__":
