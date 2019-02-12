@@ -4,7 +4,11 @@ scipy
 nltk
 pillow
 distance
-logging
-multiprocessing
 six
 click
+matplotlib
+scikit-image
+opencv-python
+imageio
+Shapely
+imgaug

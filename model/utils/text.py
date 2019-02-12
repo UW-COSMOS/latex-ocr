@@ -12,7 +12,7 @@ class Vocab(object):
     def load_vocab(self):
         special_tokens = [self.config.unk, self.config.pad, self.config.end]
         self.tok_to_id = load_tok_to_id(self.config.path_vocab, special_tokens)
-        self.id_to_tok = {idx: tok for tok, idx in self.tok_to_id.iteritems()}
+        self.id_to_tok = {idx: tok for tok, idx in self.tok_to_id.items()}
         self.n_tok = len(self.tok_to_id)
 
         self.id_pad = self.tok_to_id[self.config.pad]
